@@ -64,3 +64,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'pry-rails'
 gem 'kaminari'
 gem 'jquery-rails'
+gem 'bootstrap'
+gem 'font-awesome-rails'
+gem 'bootstrap4-datetime-picker-rails'
+gem 'momentjs-rails'
