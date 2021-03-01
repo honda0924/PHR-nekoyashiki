@@ -1,7 +1,7 @@
 class VitalsController < ApplicationController
   def index
-    # @vitals=Vital.all.order("vital_date DESC")
-    # @vital=Vital.new
+    # @vitals=Vital.all
+    @vital=Vital.new
   end
 
   def create
@@ -17,6 +17,6 @@ class VitalsController < ApplicationController
 
   private
   def vital_params
-    params.permit(:vital_date,:bp_top,:bp_bottom,:pulse,:med_check,:weight).merge(user_id: current_user.id)
+    params.permit(:vital_date,:bp_top,:bp_bottom,:pulse,:med_check,:weight)
   end
 end

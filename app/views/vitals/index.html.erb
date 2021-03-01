@@ -115,40 +115,42 @@
 
   <div id="vital_register" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
+    <div class="modal-content text-center p-5">
       <h4 class="mt-3 mb-3">新規登録</h4>
-      <div class="row justify-content-center">
-        <form action="">
-          <div class="form-group d-flex">
-            <input type="date" class="form-control mr-3" id="measurement_day">
-            <select class="form-control" id="ampm">
-              <option value="5">午前</option>
-              <option value="5">午後</option>
+      <div class="form-group d-flex justify-content-center">
+        <input type="date" class="form-control mr-3" id="measurement_day">
+        <select class="form-control" id="ampm">
+          <option value="0">午前</option>
+          <option value="5">午後</option>
+        </select>
+      </div>
+      <div class="rowtext-center">
+        <%= form_with url:vitals_path, model: @new_vital do |f| %>
+          <%= f.hidden_field :measure_time %>
+          <div class="form-group">
+            <%= f.label :bp_top, '最高血圧' %>
+            <%= f.text_field :bp_top, id: 'bp-top', class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :bp_bottom, '最低血圧' %>
+            <%= f.text_field :bp_bottom, id: 'bp-bottom', class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :pulse, '心 拍 数' %>
+            <%= f.text_field :pulse,id: 'pulse', class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :weight, '体　　重' %>
+            <%= f.text_field :weight, id: 'weight', class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :medchk, '服薬チェック' %>
+            <%= f.check_box :medchk, id:'med-chk', class: 'form-control' %>
+          </div>
+          <%= f.submit '登録', id: 'btn-primary btn-large form-control mb-5'%>
 
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="bp-top">最高血圧</label>
-            <input type="text" id="bp-top" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="bp-bottom">最低血圧</label>
-            <input type="text" id="bp-bottom" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="pulse">心 拍 数</label>
-            <input type="text" id="pulse" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="weight">体　　重</label>
-            <input type="text" id="weight" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="med-chk">服薬チェック</label>
-            <input type="checkbox" id="med-chk" class="form-control">
-          </div>
-          <input type="submit" class="btn-primary btn-large form-control mb-5" value="登録">
-        </form>
+        <% end %>
+
       </div>
 
     </div>
