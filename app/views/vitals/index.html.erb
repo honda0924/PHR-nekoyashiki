@@ -126,7 +126,7 @@
       </div>
       <div class="rowtext-center">
         <%= form_with url:vitals_path, model: @new_vital do |f| %>
-          <%= f.hidden_field :measure_time %>
+          <%= f.hidden_field :measure_time, id: 'measure_time' %>
           <div class="form-group">
             <%= f.label :bp_top, '最高血圧' %>
             <%= f.text_field :bp_top, id: 'bp-top', class: 'form-control' %>
