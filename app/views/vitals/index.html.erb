@@ -6,110 +6,37 @@
   <canvas id="graph" class="bg-secondary" style="height: 40vh; width:40vw;"></canvas>
   <div class="row mt-3">
     <div class="table_index col-sm text-left border border-secondary">
-      <p >項目/日付</p>
+      <p >日付</p>
       <p>最高血圧</p>
       <p>最低血圧</p>
       <p>心拍数</p>
       <p>服薬</p>
       <p>体重</p>  
     </div>
-    <div class="table_element col-sm text-right border border-secondary">
-      <p class="table_date">02/01 AM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>
-      <p class="text-center"><i class="fa fa-edit fa-lg"></i></p>
-    </div>
-    <div class="table_element col-sm border border-secondary">
-      <p class="table_date">02/01 PM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>  
-    </div>
-    <div class="table_element col-sm border border-secondary">
-      <p class="table_date">02/02 AM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>  
-    </div>
-    <div class="table_element col-sm border border-secondary">
-      <p class="table_date">02/02 PM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>  
-    </div>
-    <div class="table_element col-sm border border-secondary">
-      <p class="table_date">02/03 AM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>  
-    </div>
-    <div class="table_element col-sm border border-secondary">
-      <p class="table_date">02/03 PM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>  
-    </div>
-    <div class="table_element col-sm border border-secondary">
-      <p class="table_date">02/04 AM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>  
-    </div>
-    <div class="table_element col-sm border border-secondary">
-      <p class="table_date">02/05 PM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>  
-    </div>
-    <div class="table_element col-sm border border-secondary">
-      <p class="table_date">02/06 AM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>  
-    </div>
-    <div class="table_element col-sm border border-secondary">
-      <p class="table_date">02/06 PM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>  
-    </div>
-    <div class="table_element col-sm border border-secondary">
-      <p class="table_date">02/07 AM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>  
-    </div>
-    <div class="table_element col-sm border border-secondary">
+
+    <% @vitals.reverse_each do |vital| %>
+      <div class="table_element col-sm border border-secondary">
+        <p class="table_date"><%= vital.measure_time[4, 4] %><%= vital.measure_time[-1] == '0' ? 'AM' : 'PM' %></p>
+        <p><%= vital.bp_top %></p>
+        <p><%= vital.bp_bottom %></p>
+        <p><%= vital.pulse %></p>
+        <p><%= vital.medchk ? '○': '×' %></p>
+        <p><%= vital.weight %></p>  
+      </div>
+    <% end %>
+
+
+
+
+ 
+    <!-- <div class="table_element col-sm border border-secondary">
       <p class="table_date">02/07 PM</p>
       <p>110</p>
       <p>70</p>
       <p>60</p>
       <p>○</p>
       <p>70.0</p>  
-    </div>
+    </div> -->
   </div>
   <button type="button" id="register_btn" class="btn btn-primary bg-info" data-toggle="modal" data-target="#vital_register"><i class="fa fa-plus fa-5x"></i></button>
 
@@ -125,7 +52,7 @@
         </select>
       </div>
       <div class="rowtext-center">
-        <%= form_with url:vitals_path, model: @new_vital do |f| %>
+        <%= form_with url:vitals_path, model: @new_vital, local: true do |f| %>
           <%= f.hidden_field :measure_time, id: 'measure_time' %>
           <div class="form-group">
             <%= f.label :bp_top, '最高血圧' %>
@@ -145,7 +72,8 @@
           </div>
           <div class="form-group">
             <%= f.label :medchk, '服薬チェック' %>
-            <%= f.check_box :medchk, id:'med-chk', class: 'form-control' %>
+            <%= f.check_box :medchk, {checked: true}, true, false %>
+            
           </div>
           <%= f.submit '登録', id: 'btn-primary btn-large form-control mb-5'%>
 

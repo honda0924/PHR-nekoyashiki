@@ -12,8 +12,10 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require jquery3
-//= require popper
 //= require jquery
+//= require jquery_ujs
+//= require popper
 //= require bootstrap-sprockets
 //= require_tree .
+
+console.log("hoge");

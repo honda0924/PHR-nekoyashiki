@@ -1,2 +1,3 @@
 class Vital < ApplicationRecord
+  
 end

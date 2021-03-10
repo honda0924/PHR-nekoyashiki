@@ -5,7 +5,7 @@ class CreateVitals < ActiveRecord::Migration[5.2]
       t.integer :bp_top
       t.integer :bp_bottom
       t.integer :pulse
-      t.boolean :medchk
+      t.boolean :medchk, default: false
       t.float :weight
 
 
