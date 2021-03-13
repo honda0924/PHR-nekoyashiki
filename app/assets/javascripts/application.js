@@ -19,5 +19,3 @@
 //= require chartkick
 //= require Chart.bundle
 //= require_tree .
-
-console.log("hoge");

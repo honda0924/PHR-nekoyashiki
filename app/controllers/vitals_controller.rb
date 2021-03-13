@@ -1,6 +1,10 @@
 class VitalsController < ApplicationController
   def index
     @vitals=Vital.all.order('measure_datetime desc').limit(14)
+    @graph=[]
+    @vitals.each do |vital|
+      @graph << [vital.measure_datetime, vital.bp_top, vital.bp_bottom, vital.weight]
+    end
     @vital=Vital.new
   end
 

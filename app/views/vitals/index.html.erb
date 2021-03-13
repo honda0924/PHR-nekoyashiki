@@ -3,7 +3,8 @@
   <div id="target_date" class="text-center h4 mt-3">
     2021/02/01~2021/02/07
   </div>
-  <canvas id="graph" class="bg-secondary" style="height: 40vh; width:40vw;"></canvas>
+  <!-- <canvas id="graph" class="bg-secondary" style="height: 40vh; width:40vw;"></canvas> -->
+  <%= line_chart @graph,width: '800px', height: '500px' %>
   <div class="row mt-3">
     <div class="table_index col-sm text-left border border-secondary">
       <p >日付</p>
@@ -25,18 +26,6 @@
       </div>
     <% end %>
 
-
-
-
- 
-    <!-- <div class="table_element col-sm border border-secondary">
-      <p class="table_date">02/07 PM</p>
-      <p>110</p>
-      <p>70</p>
-      <p>60</p>
-      <p>○</p>
-      <p>70.0</p>  
-    </div> -->
   </div>
   <button type="button" id="register_btn" class="btn btn-primary bg-info" data-toggle="modal" data-target="#vital_register"><i class="fa fa-plus fa-5x"></i></button>
 
