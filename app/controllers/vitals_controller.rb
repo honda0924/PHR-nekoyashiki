@@ -1,6 +1,6 @@
 class VitalsController < ApplicationController
   def index
-    @vitals=Vital.all.order('measure_time desc').limit(14).order('measure_time desc')
+    @vitals=Vital.all.order('measure_datetime desc').limit(14)
     @vital=Vital.new
   end
 
@@ -18,6 +18,7 @@ class VitalsController < ApplicationController
 
   private
   def vital_params
-    params.permit(:measure_time,:bp_top,:bp_bottom,:pulse,:medcheck,:weight)
+    measure_datetime = (params[:measure_date] + params[:ampm]).delete("-")
+    params.permit(:measure_date, :ampm,:bp_top,:bp_bottom,:pulse,:medchk,:weight).merge(measure_datetime: measure_datetime)
   end
 end

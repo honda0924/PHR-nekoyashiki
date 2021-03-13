@@ -16,7 +16,7 @@
 
     <% @vitals.reverse_each do |vital| %>
       <div class="table_element col-sm border border-secondary">
-        <p class="table_date"><%= vital.measure_time[4, 4] %><%= vital.measure_time[-1] == '0' ? 'AM' : 'PM' %></p>
+        <p class="table_date"><%= vital.measure_date %><%= vital.ampm == '0' ? 'AM' : 'PM' %></p>
         <p><%= vital.bp_top %></p>
         <p><%= vital.bp_bottom %></p>
         <p><%= vital.pulse %></p>
@@ -44,16 +44,18 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content text-center p-5">
       <h4 class="mt-3 mb-3">新規登録</h4>
-      <div class="form-group d-flex justify-content-center">
-        <input type="date" class="form-control mr-3" id="measurement_day">
-        <select class="form-control" id="ampm">
-          <option value="0">午前</option>
-          <option value="5">午後</option>
-        </select>
-      </div>
+
       <div class="rowtext-center">
         <%= form_with url:vitals_path, model: @new_vital, local: true do |f| %>
-          <%= f.hidden_field :measure_time, id: 'measure_time' %>
+          <div class="form-group d-flex justify-content-center">
+            <%= f.date_field :measure_date, class: "form-control mr-3", id: "measure_date" %>
+            <%= f.select :ampm, [['AM','0'], ['PM', '5']], {}, id: "ampm" %>
+            <!-- <select class="form-control" id="ampm">
+              <option value="0">午前</option>
+              <option value="5">午後</option>
+            </select> -->
+          </div>
+          <!-- <%= f.hidden_field :measure_time, id: 'measure_time' %> -->
           <div class="form-group">
             <%= f.label :bp_top, '最高血圧' %>
             <%= f.text_field :bp_top, id: 'bp-top', class: 'form-control' %>
