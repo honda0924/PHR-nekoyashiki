@@ -1,11 +1,12 @@
 class VitalsController < ApplicationController
   def index
-    # @vitals=Vital.all.order("vital_date DESC")
-    # @vital=Vital.new
+    @vitals=Vital.all.order('measure_datetime desc').limit(14)
+    @vital=Vital.new
   end
 
   def create
     Vital.create(vital_params)
+    redirect_to root_path
   end
   def edit
     
@@ -17,6 +18,7 @@ class VitalsController < ApplicationController
 
   private
   def vital_params
-    params.permit(:vital_date,:bp_top,:bp_bottom,:pulse,:med_check,:weight).merge(user_id: current_user.id)
+    measure_datetime = (params[:measure_date] + params[:ampm]).delete("-")
+    params.permit(:measure_date, :ampm,:bp_top,:bp_bottom,:pulse,:medchk,:weight).merge(measure_datetime: measure_datetime)
   end
 end
