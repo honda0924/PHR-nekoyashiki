@@ -1,10 +1,10 @@
 <nav class="bg-primary text-center text-white h1">PHR-nekoyashiki</nav>
 <div class="content w-75 text-center m-auto">
   <div id="target_date" class="text-center h4 mt-3">
-    2021/02/01~2021/02/07
+    <%= @vitals[0].measure_date %>~<%= @vitals[-1].measure_date %>
   </div>
   <!-- <canvas id="graph" class="bg-secondary" style="height: 40vh; width:40vw;"></canvas> -->
-  <%= line_chart @graph,width: '800px', height: '500px' %>
+  <%= line_chart @graph,width: '1200px', height: '500px' %>
   <div class="row mt-3">
     <div class="table_index col-sm text-left border border-secondary">
       <p >日付</p>
@@ -15,9 +15,9 @@
       <p>体重</p>  
     </div>
 
-    <% @vitals.reverse_each do |vital| %>
+    <% @vitals.each do |vital| %>
       <div class="table_element col-sm border border-secondary">
-        <p class="table_date"><%= vital.measure_date %><%= vital.ampm == '0' ? 'AM' : 'PM' %></p>
+        <p class="table_date"><%= vital.measure_datetime.slice(4,6) %></p>
         <p><%= vital.bp_top %></p>
         <p><%= vital.bp_bottom %></p>
         <p><%= vital.pulse %></p>
@@ -38,13 +38,9 @@
         <%= form_with url:vitals_path, model: @new_vital, local: true do |f| %>
           <div class="form-group d-flex justify-content-center">
             <%= f.date_field :measure_date, class: "form-control mr-3", id: "measure_date" %>
-            <%= f.select :ampm, [['AM','0'], ['PM', '5']], {}, id: "ampm" %>
-            <!-- <select class="form-control" id="ampm">
-              <option value="0">午前</option>
-              <option value="5">午後</option>
-            </select> -->
+            <%= f.select :ampm, [['AM','AM'], ['PM', 'PM']], {}, id: "ampm" %>
+`
           </div>
-          <!-- <%= f.hidden_field :measure_time, id: 'measure_time' %> -->
           <div class="form-group">
             <%= f.label :bp_top, '最高血圧' %>
             <%= f.text_field :bp_top, id: 'bp-top', class: 'form-control' %>
